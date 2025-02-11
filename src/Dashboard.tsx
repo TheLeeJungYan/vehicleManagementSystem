@@ -1,6 +1,9 @@
-const Dashboard  = () => {
+import Layout from "@/components/Layout";
+const Dashboard:React.FC  = () => {
     return (
-        <div className="bg"></div>
+        <Layout>
+            <div></div>
+        </Layout>
     )
 }
 
