@@ -1,18 +1,43 @@
 import { CardProps } from "@/types/Card.type";
-import { HugeiconsIcon } from '@hugeicons/react';
-const Card:React.FC<CardProps> = ({title,value,main}) => {
-    return (
-        <div className={`flex-1 flex flex-col py-10 px-10 rounded-2xl capitalize ${main?'bg-linear-60 from-cyan-700 to-white text-white':'bg-gray-100 text-gray-800'}`}>
-            <div className="flex">
-                <span className="text-6xl font-bold">{value}</span>
-                <div className={`${main?'':''}`}>
-                        </div>
-            </div>
-            <div className="flex items-center gap-4 mt-1 ml-1">
-                <span className={`font-poppins text-sm ${main?'text-gray-50':'text-gray-400'}`}>{title}</span>
-            </div>
+const Card: React.FC<CardProps> = ({ title, value, main, icon }) => {
+  console.log(title);
+  const getIconClass: (title: string) => string = (title) => {
+    if (title == "draft") return "bg-white/30 ring-white/10";
+    if (title == "pending information")
+      return "bg-orange-400/10 text-orange-400";
+    if (title == "rejected") return "bg-rose-400/10 text-rose-400";
+    return "";
+  };
+  return (
+    <div
+      className={`flex-1 flex flex-col p-2 rounded-xl capitalize relative overflow-hidden ${
+        main
+          ? "bg-radial-[at_95%_5%]  from-gray-200 to-gray-950 to-90% text-white shadow-md"
+          : "bg-black/5 outline outline-white/15 backdrop-blur-md"
+      }`}
+    >
+      <div
+        className={`flex flex-1 flex-col px-7.5 py-5 rounded-lg ${
+          !main && "bg-white"
+        }`}
+      >
+        <div
+          className={`w-10 h-10 rounded-lg flex items-center justify-center ${getIconClass(
+            title
+          )}`}
+        >
+          {icon}
         </div>
-    )
-}
+        <div className="flex mt-3">
+          <span className="text-6xl font-bold">{value}</span>
+        </div>
+        <div className="ml-1 mt-1 items-center flex gap-2">
+          <div className="rounded-full w-2 h-2 bg-white ring-1"></div>
+          <span className="text-xs font-poppins text-gray-400">{title}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Card;
