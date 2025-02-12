@@ -6,7 +6,13 @@
 @theme {
   --font-inter: "Inter", serif;
   --font-poppins: "Poppins", serif;
-  --font-montserrat: "Montserrat"
+  --font-montserrat: "Montserrat";
+  --animate-pulse-2:pulse2 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  @keyframes pulse2 {
+    50% {
+      opacity: 0.2;
+    }
+  }
 }
 
 *{

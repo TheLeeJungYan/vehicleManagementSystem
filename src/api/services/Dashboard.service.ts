@@ -1,35 +1,43 @@
 import apiClient from "@/api/apiClient";
 import { HighlightResponse } from "@/types/Highlight.type";
+import { AllVehicleResponse } from "@/types/AllVehicle.type";
+import { fetchInitialDataResponse } from "@/types/Response.type";
 import { AxiosError, AxiosResponse } from "axios";
-export const fetchHighlight = async() => {
+export const fetchInitialData:() => Promise<fetchInitialDataResponse> = async () => {
     try{
-        const response:AxiosResponse<HighlightResponse> = await apiClient.post('/get_highlights');
-        return response.data;
+        const allVehicleResponseBody = {
+            "pagination_info":{
+                "page":1,
+                "limit":50
+            }
+        };
+        const [highlightResponse,allVehicleResponse]:[AxiosResponse<HighlightResponse>, AxiosResponse<AllVehicleResponse>]  = await Promise.all([
+            apiClient.post('/get_highlights'),
+            apiClient.post('/get_all_vehicles',allVehicleResponseBody)
+        ])
+        return {
+            highlightResponse: highlightResponse.data,
+            allVehicleResponse: allVehicleResponse.data,
+            message:'success',
+            success:true
+        };
     }catch(error){
-        let message:string = "Unexpected Error ! Please refresh and try again";
-        let errorCode:number = 500;
-        if(error instanceof AxiosError){
+        let message = "Unexpected error!";
+
+        if (error instanceof AxiosError) {
             message = error.message;
-            errorCode = error.response?.status ?? 500;
-        } else if (error instanceof Error){
+        } else if (error instanceof Error) {
             message = error.message;
+        } else {
+            message = JSON.stringify(error); 
         }
 
-        const response:HighlightResponse = {
-            data:null,
-            error_code:errorCode,
-            message:message
-        }
-        
-        return response;
+        return {
+            highlightResponse: null,
+            allVehicleResponse: null,
+            message:message,
+            success:false
+        };
     }
 }
 
-export const fetchAllVehicles = async() => {
-    try{
-        const response = await apiClient.post('/get_all_vehicles');
-        console.log(response);
-    }catch(error){
-        console.error(error);
-    }
-}
