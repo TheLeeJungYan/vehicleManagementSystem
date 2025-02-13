@@ -1,37 +1,39 @@
 export interface AllVehicleResponse {
-    data: AllVehicleProps|null;
-    error_code:number;
-    message:string;
+  data: AllVehicleDataProps | null;
+  error_code: number;
+  message: string;
 }
 
-export interface AllVehiclePaginationInfoProps{
-    limit:number;
-    page:number;
-    total_records:number;
+export interface AllVehiclePaginationInfoProps {
+  limit: number;
+  page: number;
+  total_records: number;
 }
 
-export interface AllVehicleResultTripProps{
-    from:string;
-    to:string;
-}
-
-export interface AllVehicleResultProps{
-    approval_status:string; //! change
-    contact_number:string;
-    country_code:string;
-    ctime:number;
-    driver:string;
-    id:string;
-    license_plate:string;
-    mtime:number;
-    passenger_capacity:number;
-    trips:AllVehicleResultTripProps[] | [];
-    vehicle_owner:string;
-    vehicle_status:string; //! change
-    vehicle_type:string; //! change
-    
+export interface AllVehicleResultTripProps {
+  from: string;
+  to: string;
 }
 export interface AllVehicleProps {
-    pagination_info:AllVehiclePaginationInfoProps;
-    result:AllVehicleResultProps[];
+  license_plate: string;
+  vehicle_owner: string;
+  vehicle_type: string; //! change
+  vehicle_status: string; // ! change
+  approval_status: string; // ! change
+  trips: AllVehicleResultTripProps[] | [];
+  contact_number: string;
+  passenger_capacity: number;
+  mtime: number;
+}
+
+export interface AllVehicleResultProps extends AllVehicleProps {
+  country_code: string;
+  ctime: number;
+  driver: string;
+  id: string;
+}
+
+export interface AllVehicleDataProps {
+  pagination_info: AllVehiclePaginationInfoProps;
+  result: AllVehicleResultProps[];
 }

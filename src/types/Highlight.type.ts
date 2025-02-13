@@ -1,9 +1,9 @@
 export interface HighlightResponse {
-    data: HighlightProps|null;
+    data: HighlightDataProps|null;
     error_code:number;
     message:string;
 }
-export interface HighlightProps {
+export interface HighlightDataProps {
     total_draft:number;
     total_pending:number;
     total_rejected:number;
