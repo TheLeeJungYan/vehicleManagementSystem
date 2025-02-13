@@ -10,7 +10,7 @@ import {
 import DashboardProvider from "@/context/DashboardContext";
 import TableContainer from "@/components/TableContainer";
 const Dashboard: React.FC = () => {
-  const { totalRejected, totalPending, totalDraft, allVechicles } =
+  const { totalRejected, totalPending, totalDraft } =
     useGetData();
   return (
     <DashboardProvider>
@@ -69,7 +69,7 @@ const Dashboard: React.FC = () => {
             />
           </div>
         </div>
-        <TableContainer data={allVechicles} />
+        <TableContainer/>
       </Layout>
     </DashboardProvider>
   );
