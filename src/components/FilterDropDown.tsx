@@ -105,6 +105,7 @@ const FilterDropDown = () => {
             </div>
             <span>Filter</span>
           </div>
+          
           <div className="flex-1 py-2.5 px-4 bg-gray-50 flex flex-col gap-y-2">
 
             <div className="flex *:flex-1 flex-col md:flex-row lg:gap-x-5 md:gap-2 gap-y-2">
