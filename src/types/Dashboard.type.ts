@@ -25,5 +25,5 @@ export interface DashboardContextProps {
   vehicleStatus:vehicleStatusValueType|null;
   setVehicleStatus:React.Dispatch<React.SetStateAction<vehicleStatusValueType | null>>;
   filter:()=>void;
-  clearFilter:()=> void = ();
+  clearFilter:()=> void;
 }
