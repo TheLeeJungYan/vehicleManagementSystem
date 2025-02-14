@@ -164,6 +164,11 @@ const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({
     });
     setSortInfo([]);
     setSelectedCard(null);
+    setVehicleStatus(null);
+    setVehicleType(null);
+    setMinPassenger(null);
+    setMaxPassenger(null);
+    setApprovalStatus(null);
   }
 
   
