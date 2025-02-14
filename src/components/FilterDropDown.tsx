@@ -91,7 +91,7 @@ const FilterDropDown = () => {
         <>
         <div className="fixed md:hidden z-[100] top-0 right-0 w-full h-full bg-black/20"></div>
         <div
-          className="fixed top-0 right-0 h-full w-[400px] md:w-auto z-[200] md:h-auto md:absolute md:top-full  max-w-screen sm:min-w-[450px] md:min-w-[600px] lg:min-w-[800px] border border-gray-200 md:rounded-lg bg-white md:mt-1 flex flex-col shadow-2xl"
+          className="fixed top-0 right-0 h-full w-[400px] md:w-auto z-[99999] md:z-[200] md:h-auto md:absolute md:top-full  max-w-screen sm:min-w-[450px] md:min-w-[600px] lg:min-w-[800px] border border-gray-200 md:rounded-lg bg-white md:mt-1 flex flex-col shadow-2xl"
           ref={dropdownRef} onClick={(e) => e.stopPropagation()}
         >
           <div className="py-2.5 px-4 border-b border-gray-200 flex items-center gap-x-2 ">
