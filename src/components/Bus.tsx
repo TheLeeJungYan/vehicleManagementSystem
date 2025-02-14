@@ -1,14 +1,14 @@
 import React from 'react';
-import BusProps from "@/types/Bus.type";
-const Bus:React.FC<BusProps> = ({color}) => {
+const Bus = (props: React.SVGProps<SVGSVGElement>) => {
     return (
       <div>
         <svg
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          fill={color}
+          fill={'#000'}
           xmlns="http://www.w3.org/2000/svg"
+          {...props}
         >
           <path
             fillRule="evenodd"
@@ -35,3 +35,4 @@ const Bus:React.FC<BusProps> = ({color}) => {
 }
 
 export default Bus;
+
