@@ -1,8 +1,6 @@
 import { TableColumnsType, TableProps } from "antd";
 import {
   AllVehicleProps,
-  AllVehicleResponse,
-  AllVehicleDataProps,
   AllVehicleResultTripProps,
   approval_status,
   vehicle_status,
@@ -18,7 +16,7 @@ import ApprovalStatus from "@/components/ApprovalStatus";
 import VehicleType from "@/components/VehicleType";
 import type { GetProps } from "antd";
 import { Input } from "antd";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Dayjs } from "dayjs";
 import { DashboardContext } from "@/context/DashboardContext";
 
@@ -45,7 +43,7 @@ export const useGetTableData: () => {
   const { setTableParams, tableParams, data, loading, clearFilter } = dashboardContext;
   const dateFormat: string = "YYYY/MM/DD";
 
-  const onSearch: SearchProps["onSearch"] = (value, _e, info) => {
+  const onSearch: SearchProps["onSearch"] = (value, _e) => {
     setTableParams((prev) => {
       const updatedParams = { ...prev };
 
@@ -60,8 +58,7 @@ export const useGetTableData: () => {
   };
 
   const dateOnChange = (
-    date: Dayjs | (Dayjs | null)[] | null,
-    dateString: string | string[]
+    date: Dayjs | (Dayjs | null)[] | null
   ) => {
     if (date === null) {
       setTableParams(({ mtime_from, mtime_to, ...prev }) => ({
@@ -84,7 +81,7 @@ export const useGetTableData: () => {
 
   const handleTableChange: TableProps<AllVehicleProps>["onChange"] = (
     pagination,
-    filters,
+    _filters,
     sorter
   ) => {
     const normalizedSorter = Array.isArray(sorter) ? sorter : [sorter];
