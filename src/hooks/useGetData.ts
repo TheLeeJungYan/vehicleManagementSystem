@@ -1,18 +1,14 @@
 import { useState, useEffect } from "react";
 import { fetchHighlight } from "@/api/services/Dashboard.service";
-import { HighlightDataProps,HighlightResponse } from "@/types/Highlight.type";
+import { HighlightDataProps, HighlightResponse } from "@/types/Highlight.type";
 export const useGetData = () => {
   const [totalRejected, setTotalRejected] = useState<number>(0);
   const [totalPending, setTotalPending] = useState<number>(0);
   const [totalDraft, setTotalDraft] = useState<number>(0);
   useEffect(() => {
     const fetchData = async () => {
-      const response:HighlightResponse  = await fetchHighlight();
-      if (
-        !response.data ||
-        response.message!="success"
-      )
-        return;
+      const response: HighlightResponse = await fetchHighlight();
+      if (!response.data || response.message != "success") return;
 
       const highlightData: HighlightDataProps = response.data;
       setTotalRejected(highlightData.total_rejected);
@@ -33,6 +29,6 @@ export const useGetData = () => {
   return {
     totalRejected,
     totalPending,
-    totalDraft
+    totalDraft,
   };
 };
