@@ -1,4 +1,4 @@
-import { AllVehicleProps, AllVehicleFilterParams,vehicle_type } from "./AllVehicle.type";
+import { AllVehicleProps, AllVehicleFilterParams,vehicle_type, AllVehicleFilterParamsSortBy } from "./AllVehicle.type";
 import { approvalStatusesValueType, vehicleStatusValueType } from "./Option.type";
 export type SelectedCardType =
   | "draft"
@@ -26,4 +26,6 @@ export interface DashboardContextProps {
   setVehicleStatus:React.Dispatch<React.SetStateAction<vehicleStatusValueType | null>>;
   filter:()=>void;
   clearFilter:()=> void;
+  sortInfo:AllVehicleFilterParamsSortBy[];
+  totalCase:number | undefined;
 }

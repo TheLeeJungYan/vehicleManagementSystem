@@ -9,6 +9,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import DashboardProvider from "@/context/DashboardContext";
 import TableContainer from "@/components/TableContainer";
+import TotalRecord from "./components/TotalRecord";
 const Dashboard: React.FC = () => {
   const { totalRejected, totalPending, totalDraft } =
     useGetData();
@@ -25,48 +26,53 @@ const Dashboard: React.FC = () => {
           </span>
         </div>
         <div className="flex">
-          <div className="flex gap-10 flex-1">
-            <div className="flex-1"></div>
-            <Card
-              title={"draft"}
-              value={totalDraft}
-              main={true}
-              icon={
-                <HugeiconsIcon
-                  icon={LicenseDraftIcon}
-                  size={20}
-                  color="currentColor"
-                  strokeWidth={1}
-                />
-              }
-            />
-
-            <Card
-              title={"pending information"}
-              value={totalPending}
-              main={false}
-              icon={
-                <HugeiconsIcon
-                  icon={Loading03Icon}
-                  size={20}
-                  color="currentColor"
-                  strokeWidth={1}
-                />
-              }
-            />
-            <Card
-              title={"rejected"}
-              value={totalRejected}
-              main={false}
-              icon={
-                <HugeiconsIcon
-                  icon={UnavailableIcon}
-                  size={20}
-                  color="currentColor"
-                  strokeWidth={1}
-                />
-              }
-            />
+          <div className="flex flex-1 2xl:gap-x-10 l xl:gap-x-5 md:gap-5 flex-col xl:flex-row gap-3   *:flex *:flex-1 *:2xl:gap-x-10 *:xl:gap-x-5 *:md:gap-5 *:flex-col *:md:flex-row *:gap-3">
+            <div>
+              <TotalRecord/>
+              <Card
+                title={"draft"}
+                value={totalDraft}
+                main={true}
+                icon={
+                  <HugeiconsIcon
+                    icon={LicenseDraftIcon}
+                    size={20}
+                    color="currentColor"
+                    strokeWidth={1}
+                  />
+                }
+              />
+            </div>
+            
+            <div>
+              <Card
+                title={"pending information"}
+                value={totalPending}
+                main={false}
+                icon={
+                  <HugeiconsIcon
+                    icon={Loading03Icon}
+                    size={20}
+                    color="currentColor"
+                    strokeWidth={1}
+                  />
+                }
+              />
+              <Card
+                title={"rejected"}
+                value={totalRejected}
+                main={false}
+                icon={
+                  <HugeiconsIcon
+                    icon={UnavailableIcon}
+                    size={20}
+                    color="currentColor"
+                    strokeWidth={1}
+                  />
+                }
+              />
+            </div>
+           
           </div>
         </div>
         <TableContainer/>

@@ -1,50 +1,62 @@
-# React + TypeScript + Vite
+# Vehicle Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a **Vehicle Management System** built using **React** with **Vite** for fast development. It utilizes modern UI libraries and tools to create a great user experience.
 
-Currently, two official plugins are available:
+## 📦 Tech Stack & Libraries
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🖌 Styling
 
-## Expanding the ESLint configuration
+- **Tailwind CSS**: I really like the Tailwind CSS style; it's the trendy way to style applications with utility-first classes.
+- **tailwindcss-animate**: Provides animation utilities for Tailwind CSS.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 🎨 UI Components
 
-- Configure the top-level `parserOptions` property like this:
+- **Ant Design**: A really good library with convenient, well-designed components.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 🔥 Icons
+
+- **HugeIcons**: My most loved icon library! The icons are really good-looking and enhance the UI.
+
+### 🌐 Networking
+
+- **Axios**: A powerful HTTP client for making API requests.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have **Node.js** installed on your system.
+
+### Installation
+
+1. Clone the repository:
+
+   ```sh
+   git clone https://github.com/TheLeeJungYan/vehicleManagementSystem.git
+   cd vehicle-management-system
+   ```
+
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+
+### Running the Development Server
+
+To start the development server, run:
+
+```sh
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Building for Production
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+To build the project for production, run:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```sh
+npm run build
 ```
+
+---
+
+Enjoy coding and managing your vehicles efficiently! 🚗💨

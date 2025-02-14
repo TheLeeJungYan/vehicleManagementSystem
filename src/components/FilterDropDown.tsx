@@ -88,8 +88,10 @@ const FilterDropDown = () => {
         ></Button>
       </Tooltip>
       {(open && !loading) && (
+        <>
+        <div className="fixed md:hidden top-0 right-0 w-full h-full z-[999] bg-black/20"></div>
         <div
-          className="absolute top-full right-0 z-100 min-w-[400px] lg:min-w-[600px] xl:min-w-[800px] border border-gray-200 rounded-lg bg-white mt-1 flex flex-col shadow-2xl"
+          className="fixed top-0 right-0 h-full w-[400px] md:w-auto md:h-auto md:absolute md:top-full z-[10000] max-w-screen sm:min-w-[450px] md:min-w-[600px] lg:min-w-[800px] border border-gray-200 md:rounded-lg bg-white md:mt-1 flex flex-col shadow-2xl"
           ref={dropdownRef} onClick={(e) => e.stopPropagation()}
         >
           <div className="py-2.5 px-4 border-b border-gray-200 flex items-center gap-x-2 ">
@@ -103,9 +105,9 @@ const FilterDropDown = () => {
             </div>
             <span>Filter</span>
           </div>
-          <div className="flex-1 py-2.5 px-4 bg-gray-50 flex flex-col gap-y-3">
+          <div className="flex-1 py-2.5 px-4 bg-gray-50 flex flex-col gap-y-2">
 
-            <div className="flex *:flex-1 gap-x-5">
+            <div className="flex *:flex-1 flex-col md:flex-row lg:gap-x-5 md:gap-2 gap-y-2">
                 <FilterGroup label="Approval Status">
                   <Select
                     showSearch
@@ -118,7 +120,7 @@ const FilterDropDown = () => {
                   />
                 </FilterGroup>
                 <FilterGroup label="Passenger Capacity">
-                  <div className="flex gap-x-2">
+                  <div className="flex lg:gap-x-5 gap-1 xs:flex-row flex-col">
                     <InputNumber
                       addonBefore="min"
                       min={1}
@@ -140,7 +142,7 @@ const FilterDropDown = () => {
                 </FilterGroup>
             </div>
 
-            <div className="flex *:flex-1 gap-x-5">
+            <div className="flex *:flex-1 flex-col md:flex-row lg:gap-x-5 md:gap-2 gap-y-2">
               <FilterGroup label="Vehicle Type">
                 <Select
                     showSearch
@@ -181,6 +183,7 @@ const FilterDropDown = () => {
             </Button>
           </footer>
         </div>
+        </>
       )}
     </div>
   );

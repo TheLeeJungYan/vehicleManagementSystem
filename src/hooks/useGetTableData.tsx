@@ -40,7 +40,7 @@ export const useGetTableData: () => {
   const dashboardContext = useContext(DashboardContext);
   if (dashboardContext == undefined)   if (!dashboardContext) return null;
 
-  const { setTableParams, tableParams, data, loading, clearFilter } = dashboardContext;
+  const { setTableParams, tableParams, data, loading, clearFilter, sortInfo } = dashboardContext;
   const dateFormat: string = "YYYY/MM/DD";
 
   const onSearch: SearchProps["onSearch"] = (value, _e) => {
@@ -97,7 +97,7 @@ export const useGetTableData: () => {
       sort_by: sortParams,
     });
   };
-
+ 
   const columns: TableColumnsType<AllVehicleProps> = [
     {
       title: "License Plate",
@@ -112,6 +112,7 @@ export const useGetTableData: () => {
       sorter: {
         multiple: 1,
       },
+      sortOrder:sortInfo.find((v)=>v.field == 'license_plate')?.order_type != undefined? sortInfo.find((v)=>v.field == 'license_plate')?.order_type ==  1 ? "descend" : "ascend" : null,
     },
     {
       title: "Vehicle Owner",
@@ -120,6 +121,7 @@ export const useGetTableData: () => {
       sorter: {
         multiple: 1,
       },
+      sortOrder:sortInfo.find((v)=>v.field == 'vehicle_owner')?.order_type != undefined? sortInfo.find((v)=>v.field == 'vehicle_owner')?.order_type ==  1 ? "descend" : "ascend" : null,
     },
     {
       title: "Vehicle Type",
@@ -128,6 +130,7 @@ export const useGetTableData: () => {
       sorter: {
         multiple: 1,
       },
+      sortOrder:sortInfo.find((v)=>v.field == 'vehicle_type')?.order_type != undefined? sortInfo.find((v)=>v.field == 'vehicle_type')?.order_type ==  1 ? "descend" : "ascend" : null,
       render: (type: vehicle_type) => {
         return <VehicleType type={type} />;
       },
@@ -139,6 +142,7 @@ export const useGetTableData: () => {
       sorter: {
         multiple: 1,
       },
+      sortOrder:sortInfo.find((v)=>v.field == 'vehicle_status')?.order_type != undefined? sortInfo.find((v)=>v.field == 'vehicle_status')?.order_type ==  1 ? "descend" : "ascend" : null,
       render: (status: vehicle_status) => {
         return <VehicleStatus status={status} />;
       },
@@ -150,6 +154,7 @@ export const useGetTableData: () => {
       sorter: {
         multiple: 1,
       },
+      sortOrder:sortInfo.find((v)=>v.field == 'approval_status')?.order_type != undefined? sortInfo.find((v)=>v.field == 'approval_status')?.order_type ==  1 ? "descend" : "ascend" : null,
       render: (status: approval_status) => {
         return <ApprovalStatus status={status} />;
       },
@@ -161,6 +166,7 @@ export const useGetTableData: () => {
       sorter: {
         multiple: 1,
       },
+      sortOrder:sortInfo.find((v)=>v.field == 'driver')?.order_type != undefined? sortInfo.find((v)=>v.field == 'driver')?.order_type ==  1 ? "descend" : "ascend" : null
     },
     {
       title: "Trips",
@@ -204,12 +210,14 @@ export const useGetTableData: () => {
       sorter: {
         multiple: 1,
       },
+      sortOrder:sortInfo.find((v)=>v.field == 'contact_number')?.order_type != undefined? sortInfo.find((v)=>v.field == 'contact_number')?.order_type ==  1 ? "descend" : "ascend" : null
     },
     {
       title: "Passenger Capacity",
       dataIndex: "passenger_capacity",
       key: "passenger_capacity",
       sorter: { multiple: 1 },
+      sortOrder:sortInfo.find((v)=>v.field == 'passenger_capacity')?.order_type != undefined? sortInfo.find((v)=>v.field == 'passenger_capacity')?.order_type ==  1 ? "descend" : "ascend" : null,
       render: (passenger_capacity: number) => {
         return (
           <div className="text-gray-700 flex gap-x-1.5 items-center">
@@ -231,7 +239,7 @@ export const useGetTableData: () => {
       sorter: {
         multiple: 1,
       },
-      defaultSortOrder: "descend",
+      sortOrder:sortInfo.find((v)=>v.field == 'mtime')?.order_type != undefined? sortInfo.find((v)=>v.field == 'mtime')?.order_type ==  1 ? "descend" : "ascend" : null,
       render: (timestamp: number) => {
         return (
           timestamp &&
