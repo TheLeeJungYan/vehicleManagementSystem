@@ -37,7 +37,7 @@ const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({
       },
     ],
   }
-
+  
   const [tableParams, setTableParams] = useState<AllVehicleFilterParams>(initialFilter);
   const [loading, setLoading] = useState<boolean>(false);
   const [approvalStatus,setApprovalStatus] = useState<approvalStatusesValueType|null>(null);
