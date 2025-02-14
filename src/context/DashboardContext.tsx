@@ -19,7 +19,7 @@ export const DashboardContext = createContext<
 const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-
+    
   const [selectedCard, setSelectedCard] = useState<SelectedCardType | null>(
     null
   );
