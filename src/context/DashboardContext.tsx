@@ -19,7 +19,7 @@ export const DashboardContext = createContext<
 const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-    
+
   const [selectedCard, setSelectedCard] = useState<SelectedCardType | null>(
     null
   );
@@ -37,7 +37,7 @@ const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({
       },
     ],
   }
-  
+  // const [sortInfo,setSortInfo] = useState<>(sort_by);
   const [tableParams, setTableParams] = useState<AllVehicleFilterParams>(initialFilter);
   const [loading, setLoading] = useState<boolean>(false);
   const [approvalStatus,setApprovalStatus] = useState<approvalStatusesValueType|null>(null);
