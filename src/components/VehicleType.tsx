@@ -3,7 +3,7 @@ const VehicleType:React.FC<{type:vehicle_type}> = ({type}) => {
     if(type == undefined){
         return;
     }
-    const imageSrc = new URL(`../assets/${type.toLowerCase()}.png`, import.meta.url).href;
+    const imageSrc = new URL(`../img/${type.toLowerCase()}.png`, import.meta.url).href;
 
     return (
         <div className="flex gap-x-2">
