@@ -1,26 +1,76 @@
-import { Button, Flex, Tooltip, Card, Select, InputNumber } from "antd";
+import { Button, Flex, Tooltip, Card, Select, InputNumber, InputNumberProps } from "antd";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { FilterIcon } from "@hugeicons/core-free-icons";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import FilterGroup from "./FilterGroup";
+import { DashboardContext } from "@/context/DashboardContext";
+import { vehicleTypesOptions,approvalStatusesOptions, vehicleStatusOptions} from "@/data/Option";
+import { approvalStatusesValueType, vehicleStatusValueType } from "@/types/Option.type";
+import { vehicle_type } from "@/types/AllVehicle.type";
 const FilterDropDown = () => {
-  const [open, setOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const dashboardContext = useContext(DashboardContext)
+  if(dashboardContext === undefined) return;
+  const { 
+    loading, 
+    approvalStatus,
+    setApprovalStatus,
+    minPassenger,
+    setMinPassenger,
+    maxPassenger,
+    setMaxPassenger,
+    vehicleType,
+    setVehicleType,
+    vehicleStatus,
+    setVehicleStatus,
+    filter 
+  } = dashboardContext;
+  const [open, setOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
         dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        !dropdownRef.current.contains(event.target as Node) &&
+        !(event.target as HTMLElement).closest(".ant-select-dropdown")
       ) {
         setOpen(false);
       }
     }
+  
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const convertToNumeric:(value:any)=>number = (value)=>{
+    return typeof value === "number" ? value : Number(value);
+  }
+
+  const approvalStatusHandleChange = (value:approvalStatusesValueType) => {
+    setApprovalStatus(value);
+  };
+
+  const maxPassengerOnChange: InputNumberProps['onChange'] = (value) => {
+    setMaxPassenger(convertToNumeric(value) || 1); 
+  };
+
+  const minPassengerOnChange: InputNumberProps['onChange'] = (value) => {
+    setMinPassenger(convertToNumeric(value) || 1); 
+  };
+  
+  const vehicleTypeHandleChange = (value:vehicle_type)=>{
+    setVehicleType(value)
+  }
+
+  
+  const vehicleStatusHandleChange = (value:vehicleStatusValueType)=>{
+    setVehicleStatus(value);
+  }
+
   return (
-    <div className="relative">
+    <div className="relative" >
       <Tooltip title="Filter">
         <Button
           type="default"
@@ -34,12 +84,13 @@ const FilterDropDown = () => {
               strokeWidth={0.1}
             />
           }
+          disabled={loading}
         ></Button>
       </Tooltip>
-      {open && (
+      {(open && !loading) && (
         <div
-          className="absolute top-full right-0 z-100 min-w-[400px] lg:min-w-[600px] border border-gray-200 rounded-lg bg-white mt-1 flex flex-col shadow-2xl"
-          ref={dropdownRef}
+          className="absolute top-full right-0 z-100 min-w-[400px] lg:min-w-[600px] xl:min-w-[800px] border border-gray-200 rounded-lg bg-white mt-1 flex flex-col shadow-2xl"
+          ref={dropdownRef} onClick={(e) => e.stopPropagation()}
         >
           <div className="py-2.5 px-4 border-b border-gray-200 flex items-center gap-x-2 ">
             <div className="flex gap-x-2 bg-gray-50 w-7 h-7 text-gray-700 border-gray-200 items-center justify-center rounded-md border">
@@ -53,104 +104,65 @@ const FilterDropDown = () => {
             <span>Filter</span>
           </div>
           <div className="flex-1 py-2.5 px-4 bg-gray-50 flex flex-col gap-y-3">
+
             <div className="flex *:flex-1 gap-x-5">
-              <div>
-                <label className="text-gray-500 text-xs ml-1 font-poppins">
-                  Approval Status
-                </label>
-                <Select
-                  showSearch
-                  placeholder="select a vehicle type"
-                  optionFilterProp="label"
-                  style={{ width: "100%" }}
-                  options={[
-                    {
-                      value: "jack",
-                      label: "Jack",
-                    },
-                    {
-                      value: "lucy",
-                      label: "Lucy",
-                    },
-                    {
-                      value: "tom",
-                      label: "Tom",
-                    },
-                  ]}
-                />
-              </div>
-              <div>
-                <label className="text-gray-500 text-xs ml-1 font-poppins">
-                  Passenger Capacity
-                </label>
-                <div className="flex gap-x-2">
-                  <InputNumber
-                    addonBefore="min"
-                    min={1}
-                    defaultValue={1}
+                <FilterGroup label="Approval Status">
+                  <Select
+                    showSearch
+                    placeholder="select a approval status"
+                    optionFilterProp="label"
+                    value={approvalStatus}
                     style={{ width: "100%" }}
+                    options={approvalStatusesOptions}
+                    onChange={approvalStatusHandleChange}
                   />
-                  <InputNumber
-                    addonBefore="max"
-                    min={1}
-                    defaultValue={5}
-                    style={{ width: "100%" }}
-                  />
-                </div>
-              </div>
+                </FilterGroup>
+                <FilterGroup label="Passenger Capacity">
+                  <div className="flex gap-x-2">
+                    <InputNumber
+                      addonBefore="min"
+                      min={1}
+                      max={maxPassenger??''}
+                      defaultValue={"-"}
+                      value={minPassenger??''}
+                      style={{ width: "100%" }}
+                      onChange={minPassengerOnChange}
+                    />
+                    <InputNumber
+                      addonBefore="max"
+                      min={minPassenger??''}
+                      defaultValue={"-"}
+                      value={maxPassenger??''}
+                      style={{ width: "100%" }}
+                      onChange={maxPassengerOnChange}
+                    />
+                  </div>
+                </FilterGroup>
             </div>
 
             <div className="flex *:flex-1 gap-x-5">
-              <div>
-                <label className="text-gray-500 text-xs ml-1 font-poppins">
-                  vehicle status
-                </label>
+              <FilterGroup label="Vehicle Type">
+                <Select
+                    showSearch
+                    placeholder="select a vehicle type"
+                    optionFilterProp="label"
+                    style={{ width: "100%" }}
+                    options={vehicleTypesOptions}
+                    value={vehicleType}
+                    onChange={vehicleTypeHandleChange}
+                  />
+              </FilterGroup>
+              <FilterGroup label="Vehicle Status">
                 <Select
                   showSearch
-                  placeholder="select a approval type"
+                  placeholder="select a vehicle status"
                   optionFilterProp="label"
                   style={{ width: "100%" }}
-                  options={[
-                    {
-                      value: "jack",
-                      label: "Jack",
-                    },
-                    {
-                      value: "lucy",
-                      label: "Lucy",
-                    },
-                    {
-                      value: "tom",
-                      label: "Tom",
-                    },
-                  ]}
-                />
-              </div>
-              <div>
-                <label className="text-gray-500 text-xs ml-1 font-poppins">
-                  vehicle type
-                </label>
-                <Select
-                  showSearch
-                  placeholder="select a vehicle type"
-                  optionFilterProp="label"
-                  style={{ width: "100%" }}
-                  options={[
-                    {
-                      value: "jack",
-                      label: "Jack",
-                    },
-                    {
-                      value: "lucy",
-                      label: "Lucy",
-                    },
-                    {
-                      value: "tom",
-                      label: "Tom",
-                    },
-                  ]}
-                />
-              </div>
+                  options={vehicleStatusOptions}
+                  value={vehicleStatus}
+                  onChange={vehicleStatusHandleChange}/>
+              </FilterGroup>
+             
             </div>
           </div>
           <footer className="mt-auto border-t border-gray-200 py-2 gap-x-1  flex justify-end px-4">
@@ -161,7 +173,10 @@ const FilterDropDown = () => {
             >
               Cancel
             </Button>
-            <Button color="primary" variant="solid">
+            <Button color="primary" variant="solid" disabled={loading} onClick={()=>{
+              filter();
+              setOpen(false);
+            }}>
               Apply
             </Button>
           </footer>

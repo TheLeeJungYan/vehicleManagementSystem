@@ -1,3 +1,5 @@
+import { approvalStatusesValueType, vehicleStatusValueType } from "./Option.type";
+
 export interface AllVehicleResponse {
   data: AllVehicleDataProps | null;
   error_code: number;
@@ -15,7 +17,7 @@ export interface AllVehicleResultTripProps {
   to: string;
 }
 
-export type vehicle_status = "Active" | "Inactive";
+export type vehicle_status = "Active" | "Inactive" | "Decommissioned";
 
 export type vehicle_type = "Truck" | "Taxi" | "Van" | "Bus";
 
@@ -43,11 +45,11 @@ export interface AllVehicleDataProps {
 }
 
 export interface AllVehicleFilterParams {
-  vehicle_type?: string;
+  vehicle_type?: vehicle_type;
   passenger_capacity_min?: number;
   passenger_capacity_max?: number;
-  approval_status?: number;
-  vehicle_status?: number;
+  approval_status?: approvalStatusesValueType;
+  vehicle_status?: vehicleStatusValueType;
   mtime_from?: number;
   mtime_to?: number;
   license_plate?: string;

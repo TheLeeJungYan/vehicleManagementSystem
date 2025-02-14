@@ -1,11 +1,15 @@
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import { Input } from "antd";
 import { useGetTableData } from "@/hooks/useGetTableData";
 import { DatePicker } from "antd";
 import FilterDropDown from "@/components/FilterDropDown";
+import { FilterRemoveIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 const { Search } = Input;
 const { RangePicker } = DatePicker;
 const TableContainer: React.FC = () => {
+  const getTableData = useGetTableData();
+  if(!getTableData) return;
   const {
     data,
     columns,
@@ -15,7 +19,8 @@ const TableContainer: React.FC = () => {
     handleTableChange,
     onSearch,
     dateOnChange,
-  } = useGetTableData();
+    clearFilter
+  } = getTableData;
 
   return (
     <div className="flex-1 flex flex-col relative">
@@ -23,7 +28,7 @@ const TableContainer: React.FC = () => {
         <Search
           placeholder="search license plate..."
           onSearch={onSearch}
-          style={{ width: 400, height: 10 }}
+          style={{ width: 400 }}
           loading={loading}
         />
         <RangePicker
@@ -32,11 +37,20 @@ const TableContainer: React.FC = () => {
           disabled={[loading, loading]}
           allowEmpty={true}
         />
-        <div className="ml-auto">
+        <div className="ml-auto flex gap-x-2">
+          <Button 
+            variant="solid"
+            color="default"
+            style={{'alignItems':'center'}}
+            icon={
+              <HugeiconsIcon  icon={FilterRemoveIcon} size={16} color="currentcolor" />
+            }
+            onClick={()=>clearFilter()}
+            loading={loading}
+          >Clear Filter</Button>
           <FilterDropDown />
         </div>
       </div>
-      {/* <div className="absolute top-0 left-0 bg-gray-500 w-full h-full"></div> */}
       <Table
         dataSource={data}
         columns={columns}

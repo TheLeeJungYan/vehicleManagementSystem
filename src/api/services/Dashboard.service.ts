@@ -45,7 +45,6 @@ export const fetchVehicle: (
       },
       sort_by: params.sort_by,
     };
-    console.log(allVehicleResponseBody);
     const vehicleResponse: AxiosResponse<AllVehicleResponse> =
       await apiClient.post("/get_all_vehicles", allVehicleResponseBody);
     return vehicleResponse.data;

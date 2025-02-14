@@ -16,11 +16,10 @@ import Location from "@/components/Location";
 import VehicleStatus from "@/components/VehicleStatus";
 import ApprovalStatus from "@/components/ApprovalStatus";
 import VehicleType from "@/components/VehicleType";
-import { fetchVehicle } from "@/api/services/Dashboard.service";
-import type { DatePickerProps, GetProps } from "antd";
+import type { GetProps } from "antd";
 import { Input } from "antd";
 import { useContext, useEffect, useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import { DashboardContext } from "@/context/DashboardContext";
 
 type SearchProps = GetProps<typeof Input.Search>;
@@ -37,10 +36,13 @@ export const useGetTableData: () => {
     date: Dayjs | (Dayjs | null)[] | null,
     dateString: string | string[]
   ) => void;
-} = () => {
+  clearFilter:()=>void
+}|null = () => {
+
   const dashboardContext = useContext(DashboardContext);
-  if (dashboardContext == undefined) return;
-  const { setTableParams, tableParams, data, loading } = dashboardContext;
+  if (dashboardContext == undefined)   if (!dashboardContext) return null;
+
+  const { setTableParams, tableParams, data, loading, clearFilter } = dashboardContext;
   const dateFormat: string = "YYYY/MM/DD";
 
   const onSearch: SearchProps["onSearch"] = (value, _e, info) => {
@@ -243,7 +245,7 @@ export const useGetTableData: () => {
             hour: "2-digit",
             minute: "2-digit",
             second: "2-digit",
-            hour12: false,
+            hour12: true,
             timeZone: "Asia/Kuala_Lumpur",
           })
         );
@@ -260,5 +262,6 @@ export const useGetTableData: () => {
     handleTableChange,
     onSearch,
     dateOnChange,
+    clearFilter
   };
 };
